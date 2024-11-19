@@ -1,0 +1,21 @@
+body {
+    background-color: #121212; /* Colore di sfondo scuro */
+    color: #ffffff; /* Colore del testo bianco */
+}
+h2, h3 {
+    color: #ffffff; /* Colore dei titoli */
+}
+.btn-primary {
+    background-color: #1db954; /* Colore verde simile a TMDb */
+    border: none;
+}
+.btn-primary:hover {
+    background-color: #1aa34a; /* Colore verde più scuro al passaggio del mouse */
+}
+.btn-success {
+    background-color: #28a745; /* Colore verde per il login */
+    border: none;
+}
+.btn-success:hover {
+    background-color: #218838; /* Colore verde più scuro al passaggio del mouse */
+}

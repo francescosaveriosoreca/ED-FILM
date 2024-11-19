@@ -1,0 +1,192 @@
+/* Imposta il tema generale */
+body {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #032541; /* Colore di sfondo scuro come TMDb */
+    color: #ffffff; /* Testo bianco */
+}
+
+/* Stile dell'intestazione */
+header {
+    background-color: #01b4e4; /* Blu TMDb */
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Controlli (barra di ricerca e filtri) */
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+#searchBar, #genreSelect {
+    padding: 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 16px;
+    width: 300px;
+    max-width: 100%;
+}
+
+#searchBar {
+    background-color: #ffffff;
+    color: #333;
+}
+
+#genreSelect {
+    background-color: #01b4e4;
+    color: white;
+    cursor: pointer;
+}
+
+/* Catalogo */
+.catalog-section {
+    margin: 20px;
+    text-align: center;
+}
+
+.catalog-section h2 {
+    font-size: 20px;
+    font-weight: bold;
+    text-transform: uppercase;
+    color: #ffffff;
+    margin-bottom: 20px;
+}
+
+.catalog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+/* Card dei film */
+.movie-card {
+    background-color: #ffffff;
+    color: #032541;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+    width: 180px;
+    text-align: center;
+}
+
+.movie-card img {
+    width: 100%;
+    height: 270px;
+    object-fit: cover;
+}
+
+.movie-card h3 {
+    font-size: 16px;
+    margin: 10px;
+    padding: 0 5px;
+    text-transform: capitalize;
+}
+
+.movie-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+}
+
+/* Dettagli del film */
+.movie-details {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 800px;
+    background-color: #ffffff;
+    color: #032541;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.movie-details h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.movie-details img {
+    width: 100%;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    display: block;
+    border-radius: 8px;
+}
+
+.movie-details p {
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+.movie-details iframe {
+    width: 100%;
+    max-width: 560px;
+    height: 315px;
+    border: none;
+    margin: 20px 0;
+    display: block;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Pulsanti */
+button {
+    display: inline-block;
+    background-color: #01b4e4;
+    color: white;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-transform: uppercase;
+    font-weight: bold;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #90cea1; /* Verde chiaro */
+}
+
+/* Barra di ricerca e selezione */
+textarea {
+    width: 100%;
+    max-width: 800px;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Responsive */
+@media screen and (max-width: 768px) {
+    .catalog {
+        gap: 10px;
+    }
+
+    .movie-card {
+        width: 150px;
+    }
+
+    .movie-card img {
+        height: 220px;
+    }
+
+    .movie-details iframe {
+        height: 200px;
+    }
+}
