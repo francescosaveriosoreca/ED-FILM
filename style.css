@@ -1,17 +1,19 @@
 /* Stile di base */
 body {
     font-family: 'Poppins', sans-serif;
+    /* Immagine di sfondo */
     background: url('https://via.placeholder.com/1920x1080') no-repeat center center fixed;
-    background-size: cover;
-    height: 100vh;
+    background-size: cover; /* Rende l'immagine di sfondo adattabile alla finestra */
+    height: 100vh; /* Imposta l'altezza della pagina per coprire tutta la finestra */
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 0;
     color: white;
+    text-align: center;
 }
 
-/* Overlay scuro */
+/* Overlay scuro per migliorare la leggibilità */
 body::before {
     content: '';
     position: absolute;
@@ -23,18 +25,18 @@ body::before {
     z-index: -1;
 }
 
-/* Container del form */
-.login-container {
+/* Contenitore del testo e dei pulsanti */
+.container {
+    max-width: 400px;
+    width: 100%;
     background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-trasparente */
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    width: 100%;
-    max-width: 400px;
-    text-align: center;
     animation: formFadeIn 1s ease-out;
 }
 
+/* Animazione di fade in */
 @keyframes formFadeIn {
     0% {
         opacity: 0;
@@ -46,68 +48,61 @@ body::before {
     }
 }
 
-h2 {
-    font-size: 32px;
-    margin-bottom: 30px;
+h1 {
+    font-size: 40px;
+    margin-bottom: 20px;
     font-weight: 600;
 }
 
-/* Stile per gli input */
-.input-container {
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
+/* Sottotitolo */
+h2 {
+    font-size: 22px;
+    margin-bottom: 40px;
+    font-weight: 300;
 }
 
-input[type="email"],
-input[type="password"] {
-    width: 100%;
-    padding: 15px;
-    margin: 10px 0;
-    border: 1px solid #444;
-    border-radius: 30px;
-    background-color: #2a2a2a;
-    color: white;
-    font-size: 16px;
-    transition: all 0.3s ease;
+/* Contenitore per i pulsanti */
+.buttons-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
-input[type="email"]:focus,
-input[type="password"]:focus {
-    border-color: #03a9f4;
-    outline: none;
-    box-shadow: 0 0 5px #03a9f4;
-    transform: scale(1.02); /* Leggero ingrandimento */
-}
-
-/* Pulsante di login */
-button[type="submit"] {
-    width: 100%;
-    padding: 15px;
+/* Stile per i pulsanti */
+.button {
     background-color: #03a9f4;
     color: white;
+    padding: 15px;
     border: none;
     border-radius: 30px;
     font-size: 18px;
+    text-decoration: none;
+    text-align: center;
     cursor: pointer;
     transition: all 0.3s ease;
-    margin-top: 20px;
 }
 
-button[type="submit"]:hover {
+.button:hover {
     background-color: #0288d1;
-    transform: scale(1.05); /* Ingrandisce il pulsante al passaggio del mouse */
+    transform: scale(1.05);
 }
 
-/* Link di registrazione */
-.register-link {
-    display: block;
-    margin-top: 15px;
-    color: #03a9f4;
-    text-decoration: none;
-    font-weight: 600;
-}
+/* Responsive design */
+@media screen and (max-width: 600px) {
+    .container {
+        padding: 20px;
+    }
 
-.register-link:hover {
-    text-decoration: underline;
+    h1 {
+        font-size: 32px;
+    }
+
+    h2 {
+        font-size: 20px;
+    }
+
+    .button {
+        font-size: 16px;
+        padding: 12px;
+    }
 }

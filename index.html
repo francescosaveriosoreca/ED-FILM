@@ -3,35 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login e Registrazione</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>Benvenuto! Login o Registrazione</title>
+    <!-- Collegamento al file CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Font di Google -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container text-center">
-        <h2 class="mt-5">Benvenuto su ED-FILMS! </h2>
+    <div class="container">
+        <h1>Benvenuto!</h1>
+        <h2>Accedi o Crea un nuovo account</h2>
 
-        <!-- Pulsanti per navigare tra login e registrazione -->
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-4">
-                <button id="loginBtn" class="btn btn-primary btn-block" onclick="redirectToLogin()">Accedi</button>
-            </div>
-            <div class="col-md-4">
-                <button id="registerBtn" class="btn btn-secondary btn-block" onclick="redirectToRegister()">Registrati</button>
-            </div>
+        <div class="buttons-container">
+            <a href="login.html" class="button">Login</a>
+            <a href="register.html" class="button">Registrati</a>
         </div>
     </div>
 
-    <script>
-        // Funzione per reindirizzare alla pagina di login
-        function redirectToLogin() {
-            window.location.href = "login.html"; // Modifica con l'URL della tua pagina di login
-        }
-
-        // Funzione per reindirizzare alla pagina di registrazione
-        function redirectToRegister() {
-            window.location.href = "register.html"; // Modifica con l'URL della tua pagina di registrazione
-        }
-    </script>
+    <!-- Collegamento al file JS (se necessario per animazioni o altre logiche) -->
+    <script src="script.js"></script>
 </body>
 </html>
