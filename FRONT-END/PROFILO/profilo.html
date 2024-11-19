@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profilo Utente</title>
+    <link rel="stylesheet" href="profilo.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Profilo Utente</h1>
+        <div class="profile-picture">
+            <img id="profileImage" src="https://via.placeholder.com/150" alt="Immagine profilo">
+        </div>
+        <h2 id="usernameDisplay">Username</h2>
+        <p id="emailDisplay">Email</p>
+        <div class="buttons-container">
+            <button class="button" onclick="changeProfilePicture()">Cambia Immagine</button>
+            <button class="button" onclick="resetPassword()">Ripristina Password</button>
+        </div>
+    </div>
+    <script src="profilo.js"></script>
+</body>
+</html>
