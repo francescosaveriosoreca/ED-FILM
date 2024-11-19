@@ -3,37 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registrazione</title>
+    <title>Login</title>
     <!-- Collegamento al file CSS -->
-    <link rel="stylesheet" href="register.css">
+    <link rel="stylesheet" href="login.css">
     <!-- Font di Google -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <div class="register-container">
-        <h2>Crea il tuo Account</h2>
+    <div class="login-container">
+        <h2>Accedi al Tuo Account</h2>
         
-        <form id="registerForm">
-            <div class="input-container">
-                <input type="text" id="username" placeholder="Nome Utente" required>
-            </div>
+        <form id="loginForm">
             <div class="input-container">
                 <input type="email" id="email" placeholder="Email" required>
             </div>
             <div class="input-container">
                 <input type="password" id="password" placeholder="Password" required>
             </div>
-            <div class="input-container">
-                <input type="password" id="confirmPassword" placeholder="Conferma Password" required>
-            </div>
-            <button type="submit">Registrati</button>
+            <button type="submit">Accedi</button>
         </form>
         
-        <a href="login.html" class="login-link">Hai già un account? Accedi!</a>
+        <a href="register.html" class="register-link">Non hai un account? Registrati!</a>
     </div>
 
     <!-- Collegamento al file JS -->
-    <script src="register.js"></script>
+    <script src="login.js"></script>
 </body>
 </html>

@@ -1,38 +1,25 @@
-// Aggiungi la classe "visible" ai messaggi di errore quando necessario
-const usernameInput = document.getElementById('username');
-const emailInput = document.getElementById('email');
-const passwordInput = document.getElementById('password');
+// Gestione del form di registrazione
+document.getElementById('registerForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Previene il comportamento predefinito del form
 
-usernameInput.addEventListener('input', () => {
-    const usernameError = document.getElementById('usernameError');
-    if (usernameInput.value.length < 3) {
-        usernameError.textContent = 'Username troppo corto';
-        usernameError.classList.add('visible');
-    } else {
-        usernameError.textContent = '';
-        usernameError.classList.remove('visible');
+    // Ottieni i valori inseriti
+    const username = document.getElementById('username').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const confirmPassword = document.getElementById('confirmPassword').value;
+
+    // Verifica che le password corrispondano
+    if (password !== confirmPassword) {
+        alert('Le password non corrispondono. Riprova!');
+        return;
     }
-});
 
-emailInput.addEventListener('input', () => {
-    const emailError = document.getElementById('emailError');
-    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    if (!emailRegex.test(emailInput.value)) {
-        emailError.textContent = 'Email non valida';
-        emailError.classList.add('visible');
+    // Verifica che tutti i campi siano compilati
+    if (username && email && password) {
+        // Esegui una simulazione di registrazione
+        alert('Registrazione completata con successo!');
+        // Qui puoi aggiungere la logica per registrare l'utente (ad esempio, invio al server)
     } else {
-        emailError.textContent = '';
-        emailError.classList.remove('visible');
-    }
-});
-
-passwordInput.addEventListener('input', () => {
-    const passwordError = document.getElementById('passwordError');
-    if (passwordInput.value.length < 6) {
-        passwordError.textContent = 'Password troppo corta';
-        passwordError.classList.add('visible');
-    } else {
-        passwordError.textContent = '';
-        passwordError.classList.remove('visible');
+        alert('Per favore, compila tutti i campi.');
     }
 });
