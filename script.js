@@ -114,3 +114,4 @@ function goBack() {
 // Inizializza la pagina
 loadGenres();
 loadHomeSections();
+
