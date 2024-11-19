@@ -93,67 +93,6 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Funzione per gestire l'account utente
-function setupUserAccount(username, userImage) {
-    // Creare l'elemento per l'immagine dell'account
-    const accountContainer = document.createElement("div");
-    accountContainer.classList.add("user-account");
-    accountContainer.style.position = "relative";
-    accountContainer.style.cursor = "pointer";
-
-    const accountImage = document.createElement("img");
-    accountImage.src = userImage;
-    accountImage.alt = "Immagine Account";
-    accountImage.style.width = "50px";
-    accountImage.style.height = "50px";
-    accountImage.style.borderRadius = "50%";
-    accountImage.style.border = "2px solid #ccc";
-
-    // Aggiungere l'immagine al contenitore
-    accountContainer.appendChild(accountImage);
-
-    // Creare un pannello nascosto per mostrare i dettagli
-    const userDetails = document.createElement("div");
-    userDetails.classList.add("user-details");
-    userDetails.style.position = "absolute";
-    userDetails.style.top = "60px";
-    userDetails.style.left = "0";
-    userDetails.style.backgroundColor = "#fff";
-    userDetails.style.border = "1px solid #ccc";
-    userDetails.style.padding = "10px";
-    userDetails.style.boxShadow = "0 4px 6px rgba(0,0,0,0.1)";
-    userDetails.style.display = "none";
-
-    // Aggiungere il nome utente e l'immagine nel pannello
-    const userDetailsImage = document.createElement("img");
-    userDetailsImage.src = userImage;
-    userDetailsImage.alt = "Immagine Account";
-    userDetailsImage.style.width = "70px";
-    userDetailsImage.style.height = "70px";
-    userDetailsImage.style.borderRadius = "50%";
-    userDetailsImage.style.marginBottom = "10px";
-
-    const userName = document.createElement("p");
-    userName.textContent = username;
-    userName.style.fontWeight = "bold";
-    userName.style.margin = "0";
-
-    userDetails.appendChild(userDetailsImage);
-    userDetails.appendChild(userName);
-
-    // Aggiungere il pannello dei dettagli al contenitore
-    accountContainer.appendChild(userDetails);
-
-    // Gestire il clic per mostrare/nascondere i dettagli
-    accountContainer.addEventListener("click", () => {
-        userDetails.style.display =
-            userDetails.style.display === "none" ? "block" : "none";
-    });
-
-    // Aggiungere il contenitore dell'account al DOM (ad esempio nella barra di controllo)
-    document.querySelector(".controls").appendChild(accountContainer);
-}
-
 // Carica inizialmente i film
 loadMovies(currentPage);
 

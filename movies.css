@@ -190,19 +190,3 @@ textarea {
         height: 200px;
     }
 }
-
-.user-account {
-    display: inline-block;
-    margin-left: 10px;
-}
-
-.user-details {
-    z-index: 100;
-    border-radius: 8px;
-}
-
-.user-details p {
-    text-align: center;
-    font-size: 14px;
-    color: #333;
-}
