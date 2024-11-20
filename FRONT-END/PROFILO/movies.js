@@ -163,5 +163,15 @@ window.addEventListener('scroll', () => {
     }
 });
 
+// Caricare l'immagine del profilo salvata
+window.onload = function () {
+    const savedImage = localStorage.getItem("profileImage");
+    const profileImageElement = document.getElementById("profileImage");
+
+    if (savedImage) {
+        profileImageElement.src = savedImage;
+    }
+};
+
 // Inizializza la pagina con le ultime uscite
 loadMoviesByCategory('now_playing');

@@ -1,8 +1,8 @@
 // Variabili globali
 let userProfile = {
-    username: "DefaultUser",
+    username: localStorage.getItem("username") || "DefaultUser",
     email: "default@example.com",
-    profileImage: "https://via.placeholder.com/150"
+    profileImage: localStorage.getItem("profileImage") || "https://via.placeholder.com/150"
 };
 
 // Caricamento iniziale
@@ -22,7 +22,21 @@ function changeProfilePicture() {
     const newImage = prompt("Inserisci il URL della nuova immagine del profilo:");
     if (newImage) {
         userProfile.profileImage = newImage;
+        localStorage.setItem("profileImage", newImage);
         loadProfile();
+    }
+}
+
+// Funzione per aggiornare il nome utente
+function updateUsername() {
+    const newUsername = document.getElementById("usernameInput").value.trim();
+    if (newUsername) {
+        userProfile.username = newUsername;
+        localStorage.setItem("username", newUsername);
+        alert("Username aggiornato con successo!");
+        loadProfile();
+    } else {
+        alert("Inserisci un nome utente valido.");
     }
 }
 
@@ -31,9 +45,3 @@ function resetPassword() {
     alert("Una mail di ripristino è stata inviata a: " + userProfile.email);
 }
 
-// Funzione per aggiornare l'utente (opzionale, se hai una logica di login)
-function updateProfile(username, email) {
-    userProfile.username = username;
-    userProfile.email = email;
-    loadProfile();
-}

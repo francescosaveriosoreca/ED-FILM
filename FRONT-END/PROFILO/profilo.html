@@ -14,6 +14,12 @@
         </div>
         <h2 id="usernameDisplay">Username</h2>
         <p id="emailDisplay">Email</p>
+        
+        <!-- Campo per cambiare il nome utente -->
+        <div class="username-change">
+            <input type="text" id="usernameInput" placeholder="Inserisci il nuovo username">
+            <button class="button" onclick="updateUsername()">Aggiorna Username</button>
+        </div>
         <div class="buttons-container">
             <button class="button" onclick="changeProfilePicture()">Cambia Immagine</button>
             <button class="button" onclick="resetPassword()">Ripristina Password</button>
@@ -22,3 +28,4 @@
     <script src="profilo.js"></script>
 </body>
 </html>
+

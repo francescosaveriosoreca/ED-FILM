@@ -3,19 +3,29 @@ body {
     font-family: 'Roboto', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #032541; /* Colore di sfondo scuro come TMDb */
+    background-color: rgba(0, 0, 0, 0.6); /* Colore di sfondo scuro come TMDb */
     color: #ffffff; /* Testo bianco */
 }
 
 /* Stile dell'intestazione */
 header {
-    background-color: #01b4e4; /* Blu TMDb */
+    background-color: rgba(0, 0, 0, 0.7); /* Blu TMDb */
     color: white;
     padding: 20px;
     text-align: center;
     font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
+}
+
+.profile-button {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
 }
 
 /* Controlli (barra di ricerca e filtri) */

@@ -77,10 +77,10 @@ h2, p {
 .button {
     background-color: #03a9f4;
     color: white;
-    padding: 15px;
+    padding: 12px;
     border: none;
-    border-radius: 30px;
-    font-size: 18px;
+    border-radius: 25px;
+    font-size: 15px;
     cursor: pointer;
     transition: all 0.3s ease;
 }
@@ -88,4 +88,20 @@ h2, p {
 .button:hover {
     background-color: #0288d1;
     transform: scale(1.05);
+}
+
+/* Spazio per l'inserimento del nuovo username */
+.username-change {
+    display: flex;
+    flex-direction: column;
+    gap: 10px; /* Spazio tra input e pulsante */
+    margin-bottom: 20px; /* Aggiunto spazio sotto "Aggiorna Username" */
+}
+
+.username-change input {
+    width: 100%; /* Larghezza completa rispetto al contenitore */
+    padding: 10px; /* Spazio interno per migliorare la leggibilità */
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
 }
