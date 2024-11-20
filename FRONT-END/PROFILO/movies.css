@@ -16,6 +16,7 @@ header {
     font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Aggiunta ombra */
 }
 
 .profile-button {
@@ -44,11 +45,17 @@ header {
     font-size: 16px;
     width: 300px;
     max-width: 100%;
+    transition: border 0.3s; /* Transizione per il focus */
 }
 
 #searchBar {
     background-color: #ffffff;
     color: #333;
+}
+
+#searchBar:focus {
+    border: 2px solid #01b4e4; /* Bordo blu al focus */
+    outline: none; /* Rimuove il bordo di default */
 }
 
 #genreSelect {
@@ -156,7 +163,7 @@ button {
     display: inline-block;
     background-color: #01b4e4;
     color: white;
-    padding: 10px 20px;
+    padding: 10px 20 px;
     font-size: 16px;
     border: none;
     border-radius: 5px;
@@ -164,11 +171,12 @@ button {
     text-transform: uppercase;
     font-weight: bold;
     margin-top: 10px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.3s; /* Aggiunta transizione per il pulsante */
 }
 
 button:hover {
     background-color: #90cea1; /* Verde chiaro */
+    transform: scale(1.05); /* Effetto di ingrandimento al passaggio del mouse */
 }
 
 /* Barra di ricerca e selezione */
@@ -180,6 +188,12 @@ textarea {
     font-size: 16px;
     border-radius: 5px;
     border: 1px solid #ccc;
+    transition: border 0.3s; /* Transizione per il focus */
+}
+
+textarea:focus {
+    border: 2px solid #01b4e4; /* Bordo blu al focus */
+    outline: none; /* Rimuove il bordo di default */
 }
 
 /* Responsive */
