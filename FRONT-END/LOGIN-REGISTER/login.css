@@ -9,6 +9,7 @@ body {
     align-items: center;
     margin: 0;
     color: white;
+    position: relative;
 }
 
 /* Overlay scuro */
