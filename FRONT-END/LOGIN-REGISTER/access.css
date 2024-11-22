@@ -29,7 +29,7 @@ body::before {
 .container {
     max-width: 400px;
     width: 100%;
-    background-color: rgba(0, 0, 0, 0.7); /* Fondo semi-trasparente */
+    background-color: #000000; /* Fondo semi-trasparente */
     padding: 40px;
     border-radius: 10px;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
