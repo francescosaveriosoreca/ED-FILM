@@ -1,18 +1,15 @@
 const express = require('express');
 const router = express.Router();
+const authController = require('./controllers/authController'); // Importa il controller
 
-// Esempio di rotta per ottenere tutti gli utenti
+// Rotta GET per ottenere tutti gli utenti (facoltativa)
 router.get('/', (req, res) => {
-  // Logica per ottenere gli utenti
+  // Logica per ottenere gli utenti (potresti usare User.find() per MongoDB)
   res.send('Elenco degli utenti');
 });
 
-// Esempio di rotta per aggiungere un utente
-router.post('/', (req, res) => {
-  const newUser  = req.body; // Assicurati di avere il middleware per il parsing JSON
-  // Logica per aggiungere l'utente
-  res.status(201).send(`Utente aggiunto: ${newUser .name}`);
-});
+// Rotta POST per registrare un utente
+router.post('/register', authController.registerUser);  // Usa il controller per registrare l'utente
 
 // Esporta il router
 module.exports = router;

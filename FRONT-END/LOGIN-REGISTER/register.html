@@ -16,23 +16,19 @@
         
         <form id="registerForm">
             <div class="input-container">
-                <input type="text" id="username" placeholder="Nome Utente" required>
+                <input type="text" id="username" name="username" placeholder="Nome Utente" required>
             </div>
             <div class="input-container">
-                <input type="email" id="email" placeholder="Email" required>
+                <input type="email" id="email" name="email" placeholder="Email" required>
             </div>
             <div class="input-container">
-                <input type="password" id="password" placeholder="Password" required>
+                <input type="password" id="password" name="password" placeholder="Password" required>
             </div>
             <div class="input-container">
-                <input type="password" id="confirmPassword" placeholder="Conferma Password" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Conferma Password" required>
             </div>
-            <a href="login.html">
-                <button type="button">Registrati</button>
-              </a>
-              
-           
-   </form>
+            <button type="submit">Registrati</button>
+        </form>
         
         <a href="login.html" class="login-link">Hai già un account? Accedi!</a>
     </div>
