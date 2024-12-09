@@ -3,9 +3,9 @@ const API_URL = 'https://api.themoviedb.org/3';
 const IMAGE_BASE_URL = 'https://image.tmdb.org/t/p/w500';
 
 let currentPage = 1;
-let isLoading = false; // Stato di caricamento
-let isSearching = false; // Controlla se è in corso una ricerca
-const sectionId = 'catalogContainer'; // ID della sezione del catalogo
+let isLoading = false; 
+let isSearching = false; 
+const sectionId = 'catalogContainer';
 
 // Carica i film per categoria
 async function loadMoviesByCategory(category) {
@@ -47,11 +47,11 @@ function displayCatalog(movies, sectionId) {
 document.getElementById('searchBar').addEventListener('input', async (e) => {
     const query = encodeURIComponent(e.target.value.trim());
     const catalog = document.querySelector(`#${sectionId} .catalog`);
-    catalog.innerHTML = ''; // Resetta il catalogo
+    catalog.innerHTML = '';
 
     if (query) {
         currentPage = 1;
-        isSearching = true; // Attiva modalità ricerca
+        isSearching = true;
         try {
             const response = await fetch(`${API_URL}/search/movie?api_key=${API_KEY}&query=${query}`);
             const data = await response.json();
@@ -60,7 +60,7 @@ document.getElementById('searchBar').addEventListener('input', async (e) => {
             console.error('Errore durante la ricerca dei film:', error);
         }
     } else {
-        isSearching = false; // Disattiva modalità ricerca
+        isSearching = false;
         loadMoviesByCategory('now_playing');
     }
 });
@@ -70,7 +70,7 @@ document.getElementById('genreSelect').addEventListener('change', async (e) => {
     const genreId = e.target.value;
     currentPage = 1;
     const catalog = document.querySelector(`#${sectionId} .catalog`);
-    catalog.innerHTML = ''; // Resetta il catalogo
+    catalog.innerHTML = '';
 
     if (genreId) {
         loadMoviesByGenre(genreId);
@@ -84,7 +84,6 @@ async function viewMovieDetails(movieId) {
     try {
         const response = await fetch(`${API_URL}/movie/${movieId}?api_key=${API_KEY}&language=it`);
         const movie = await response.json();
-
         const videoResponse = await fetch(`${API_URL}/movie/${movieId}/videos?api_key=${API_KEY}&language=it`);
         const videoData = await videoResponse.json();
         const trailer = videoData.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
@@ -120,48 +119,46 @@ function goBack() {
     document.getElementById('movieDetails').style.display = 'none';
     document.getElementById('home').style.display = 'block';
 }
-
-// Funzione per inviare una recensione
+// funzione per inserire una recensione
 function submitReview() {
-    const reviewInput = document.getElementById('review');
-    const reviewList = document.getElementById('reviewList');
+    const token = localStorage.getItem('token');
 
-    const reviewText = reviewInput.value.trim();
-    if (reviewText) {
-        const reviewItem = document.createElement('p');
-        reviewItem.textContent = reviewText;
-        reviewList.appendChild(reviewItem);
+    if (!token) {
+        alert("Token non disponibile. Accedi per inviare una recensione.");
+        return;
+    }
 
+    const reviewText = document.getElementById('review').value.trim(); // Corretto l'ID
+    if (!reviewText) {
+        alert("Inserisci una recensione prima di inviare.");
+        return;
+    }
+
+    // Invia la recensione al server
+    fetch(`http://localhost:3000/api/reviews`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // Includi il token
+        },
+        body: JSON.stringify({ movieId: currentMovieId, reviewText }) // Assicurati di avere l'ID del film
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Errore HTTP! Stato: ${response.status}`);
+        }
+        return response.json();
+    })
+    .then(data => {
         alert('Recensione inviata con successo!');
-        reviewInput.value = '';
-    } else {
-        alert('Inserisci una recensione prima di inviarla.');
-    }
+        // Aggiungi logica per aggiornare la lista delle recensioni se necessario
+    })
+    .catch(error => {
+        console.error('Errore durante l\'invio della recensione:', error);
+        alert('Errore durante l\'invio della recensione. Riprova più tardi.');
+    });
 }
 
-// Funzione per caricare più film
-async function loadMoreMovies() {
-    if (isLoading || isSearching) return;
-
-    isLoading = true;
-    try {
-        const response = await fetch(`${API_URL}/movie/now_playing?api_key=${API_KEY}&page=${currentPage}`);
-        const data = await response.json();
-        displayCatalog(data.results, sectionId);
-        currentPage++;
-    } catch (error) {
-        console.error('Errore durante il caricamento dei film:', error);
-    } finally {
-        isLoading = false;
-    }
-}
-
-// Event listener per lo scroll
-window.addEventListener('scroll', () => {
-    if (!isSearching && window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
-        loadMoreMovies();
-    }
-});
 
 // Caricare l'immagine del profilo salvata
 window.onload = function () {
@@ -172,6 +169,13 @@ window.onload = function () {
         profileImageElement.src = savedImage;
     }
 };
+
+// Event listener per lo scroll
+window.addEventListener('scroll', () => {
+    if (!isSearching && window.innerHeight + window.scrollY >= document.body.offsetHeight - 500) {
+        loadMoreMovies();
+    }
+});
 
 // Inizializza la pagina con le ultime uscite
 loadMoviesByCategory('now_playing');

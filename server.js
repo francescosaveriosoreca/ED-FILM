@@ -1,3 +1,6 @@
+require('dotenv').config();
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
@@ -7,12 +10,19 @@ const cors = require('cors'); // Importa CORS
 const User = require('./models/User');
 const Review = require('./models/Review');
 
+
+
 const app = express();
 const PORT = process.env.PORT || 3000;
+
+
 
 // Middleware
 app.use(bodyParser.json());
 app.use(cors()); // Aggiungi il middleware CORS
+
+// Configura il middleware per servire file statici
+app.use(express.static('FRONT-END')); // Assicurati che il percorso sia corretto
 
 // Connessione a MongoDB (URI locale)
 const uri = 'mongodb://127.0.0.1:27017/ED-FILM'; // Assicurati che MongoDB sia in esecuzione
@@ -26,16 +36,27 @@ mongoose.connect(uri)
 
 // Middleware per la verifica del token JWT
 const verifyToken = (req, res, next) => {
-    const token = req.header('Authorization');
+    const tokenHeader = req.header('Authorization');
     
-    if (!token) return res.status(401).json({ error: 'Accesso negato, token mancante' });
+    if (!tokenHeader) {
+        console.log("Token mancante");
+        return res.status(401).json({ error: 'Accesso negato, token mancante' });
+    }
+
+    // Separare la parola "Bearer" e il token
+    const token = tokenHeader.split(' ')[1];
+    
+    if (!token) {
+        return res.status(401).json({ error: 'Token non valido' });
+    }
 
     try {
-        // Verifica il token
-        const verified = jwt.verify(token, 'your_jwt_secret');
-        req.user = verified;  // Salva l'id dell'utente decodificato
-        next();  // Passa alla rotta successiva
+        console.log("Token ricevuto: ", token);
+        const verified = jwt.verify(token, process.env.JWT_SECRET);
+        req.user = verified; // Imposta l'utente verificato
+        next();
     } catch (err) {
+        console.log("Errore nella verifica del token: ", err);
         res.status(400).json({ error: 'Token non valido' });
     }
 };
@@ -74,50 +95,65 @@ app.post('/api/register', async (req, res) => {
     }
 });
 
-
-// Login Utente
+// Login utente 
 app.post('/api/login', async (req, res) => {
     const { email, password } = req.body;
 
+    console.log('Richiesta di login ricevuta:', { email }); // Log dell'email ricevuta
+
     try {
         const user = await User.findOne({ email });
-        if (!user) return res.status(400).json({ error: 'Utente non trovato' });
+        if (!user) {
+            console.log('Utente non trovato');
+            return res.status(400).json({ error: 'Utente non trovato' });
+        }
 
         const isMatch = await bcrypt.compare(password, user.password);
-        if (!isMatch) return res.status(400).json({ error: 'Password errata' });
+        if (!isMatch) {
+            console.log('Password errata');
+            return res.status(400).json({ error: 'Password errata' });
+        }
 
-        const token = jwt.sign({ id: user._id }, 'your_jwt_secret', { expiresIn: '1h' });
-        res.json({ token });
+        const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, { expiresIn: '1h' });
+        console.log('Login effettuato per l\'utente:', user.username); // Log del nome utente
+        res.json({ token });        
     } catch (error) {
+        console.error('Errore durante il login:', error);
         res.status(500).json({ error: 'Errore durante il login', details: error.message });
     }
 });
 
 // Aggiunta Recensione (protetta)
-app.post('/api/reviews', verifyToken, async (req, res) => {
-    const { movieId, reviewText, rating } = req.body;
-    const userId = req.user.id;  // Usa l'id dell'utente dal token
+app.post('/api/reviews', async (req, res) => {
+    const { movieId, reviewText, rating, userId } = req.body;
+
+    if (!movieId || !reviewText || !rating || !userId) {
+        return res.status(400).json({ error: 'Tutti i campi sono obbligatori.' });
+    }
 
     try {
-        const newReview = new Review({ movieId, userId, reviewText, rating });
-        await newReview.save();
-        res.status(201).json({ message: 'Recensione aggiunta con successo' });
+        const review = new Review({ movieId, reviewText, rating, userId });
+        await review.save();
+        console.log('Recensione aggiunta:', review); // Per vedere nel terminale
+        res.status(201).json({ message: 'Recensione aggiunta con successo.', review });
     } catch (error) {
+        console.error('Errore durante l\'aggiunta della recensione:', error);
         res.status(500).json({ error: 'Errore durante l\'aggiunta della recensione', details: error.message });
     }
 });
 
-// Recupero Recensioni
-app.get('/api/reviews/:movieId', async (req, res) => {
-    const { movieId } = req.params;
-
+// Recupero tutte le recensioni
+app.get('/api/reviews', async (req, res) => {
     try {
-        const reviews = await Review.find({ movieId }).populate('userId', 'username');
-        res.json(reviews);
+        const reviews = await Review.find().populate('userId', 'username email'); // Popola i dati dell'utente
+        console.log(reviews); // Mostra nel terminale
+        res.json(reviews);    // Risponde al client
     } catch (error) {
+        console.error('Errore durante il recupero delle recensioni:', error);
         res.status(500).json({ error: 'Errore durante il recupero delle recensioni', details: error.message });
     }
 });
+
 
 // Modifica recensioni 
 
