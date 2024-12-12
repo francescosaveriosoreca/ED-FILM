@@ -89,6 +89,12 @@ async function viewMovieDetails(movieId) {
         const videoData = await videoResponse.json();
         const trailer = videoData.results.find(video => video.type === 'Trailer' && video.site === 'YouTube');
 
+        const providersResponse = await fetch(`${API_URL}/movie/${movieId}/watch/providers?api_key=${API_KEY}&language=it`);
+        const providersData = await providersResponse.json();
+        console.log(providersData); // Aggiungi un log per vedere i dati ricevuti dai provider
+
+        const providers = providersData.results?.IT; // Italia
+
         const detailsDiv = document.getElementById('movieDetails');
         detailsDiv.style.display = 'block';
         detailsDiv.innerHTML = `
@@ -96,10 +102,23 @@ async function viewMovieDetails(movieId) {
             <h2>${movie.title || 'Titolo non disponibile'}</h2>
             <img src="${IMAGE_BASE_URL}${movie.poster_path}" alt="${movie.title || 'Titolo non disponibile'}">
             <p><strong>Descrizione:</strong> ${movie.overview || 'Descrizione non disponibile'}</p>
+            
+            ${providers ? `
+                <div>
+                    <h3>Disponibilità in Streaming:</h3>
+                    <ul>
+                        ${Object.entries(providers).map(([platform, details]) => `
+                            <li><strong>${platform}:</strong> ${details.link ? `<a href="${details.link}" target="_blank">Vai al sito</a>` : 'Non disponibile online'}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+            ` : '<p>Disponibilità in streaming non disponibile</p>'}
+
             ${trailer ? `
                 <h3>Trailer</h3>
                 <iframe width="560" height="315" src="https://www.youtube.com/embed/${trailer.key}" frameborder="0" allowfullscreen></iframe>
             ` : '<p>Trailer non disponibile</p>'}
+            
             <div>
                 <label for="review">Recensione:</label>
                 <textarea id="review" placeholder="Aggiungi una recensione..." rows="4" cols="50"></textarea>
@@ -123,21 +142,67 @@ function goBack() {
 
 // Funzione per inviare una recensione
 function submitReview() {
-    const reviewInput = document.getElementById('review');
-    const reviewList = document.getElementById('reviewList');
-
+    const reviewInput = document.getElementById("review");
     const reviewText = reviewInput.value.trim();
-    if (reviewText) {
-        const reviewItem = document.createElement('p');
-        reviewItem.textContent = reviewText;
-        reviewList.appendChild(reviewItem);
+    const username = localStorage.getItem("username") || "DefaultUser";
 
-        alert('Recensione inviata con successo!');
-        reviewInput.value = '';
+    if (reviewText) {
+        const review = {
+            username: username,
+            text: reviewText,
+            date: new Date().toLocaleString(),
+        };
+
+        // Recupera le recensioni esistenti da localStorage
+        let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+        reviews.push(review); // Aggiungi la nuova recensione
+        localStorage.setItem("reviews", JSON.stringify(reviews)); // Salva l'array aggiornato in localStorage
+
+        displayReviews(); // Mostra tutte le recensioni aggiornate
+        alert("Recensione inviata con successo!");
+        reviewInput.value = ''; // Resetta il campo di input
     } else {
-        alert('Inserisci una recensione prima di inviarla.');
+        alert("Inserisci una recensione prima di inviarla.");
     }
 }
+
+// Funzione per mostrare tutte le recensioni salvate
+function displayReviews() {
+    const reviews = JSON.parse(localStorage.getItem("reviews")) || []; // Ottieni tutte le recensioni salvate
+    const reviewList = document.getElementById("reviewList");
+    reviewList.innerHTML = ''; // Resetta il contenitore
+
+    reviews.forEach(review => {
+        const reviewItem = `
+            <div class="review-item">
+                <p><strong>${review.username}</strong> (${review.date}):</p>
+                <p>${review.text}</p>
+            </div>
+        `;
+        reviewList.innerHTML += reviewItem; // Aggiungi ogni recensione al contenitore
+    });
+}
+
+// Funzione per caricare e visualizzare tutte le recensioni salvate
+function loadReviews() {
+    const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+    const reviewList = document.getElementById("reviewList");
+    reviewList.innerHTML = ''; // Resetta il contenitore delle recensioni
+
+    reviews.forEach(review => addReviewToDOM(review)); // Aggiungi ogni recensione al DOM
+}
+
+// Caricamento iniziale delle recensioni
+window.onload = function () {
+    const savedImage = localStorage.getItem("profileImage");
+    const profileImageElement = document.getElementById("profileImage");
+
+    if (savedImage) {
+        profileImageElement.src = savedImage;
+    }
+
+    displayReviews(); // Mostra tutte le recensioni salvate
+};
 
 // Funzione per caricare più film
 async function loadMoreMovies() {

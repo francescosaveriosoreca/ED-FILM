@@ -9,14 +9,14 @@ body {
 
 /* Stile dell'intestazione */
 header {
-    background-color: rgba(0, 0, 0, 0.750);
+    background-color: rgb(0, 0, 0);
     color: white;
     padding: 20px;
     text-align: center;
     font-size: 24px;
     font-weight: bold;
     text-transform: uppercase;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Aggiunta ombra */
+    box-shadow: 0 2px 5px rgb(0, 0, 0); /* Aggiunta ombra */
 }
 
 .profile-button {
@@ -229,4 +229,15 @@ textarea:focus {
     text-align: center;
     font-size: 14px;
     color: #333;
+}
+
+.review-item {
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #f8f8f8;
+}
+.review-item p {
+    margin: 5px 0;
 }

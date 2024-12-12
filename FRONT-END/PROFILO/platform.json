@@ -1,0 +1,8 @@
+{
+    "platforms": {
+        "28": ["Netflix", "Amazon Prime"],
+        "35": ["Disney+", "Hulu"],
+        "Titanic": ["HBO Max", "Amazon Prime"],
+        "Inception": ["Netflix"]
+    }
+}

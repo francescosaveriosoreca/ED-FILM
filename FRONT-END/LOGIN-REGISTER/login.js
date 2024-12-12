@@ -1,17 +1,23 @@
-// Gestione del form di login
-document.getElementById('loginForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Previene il comportamento predefinito del form
+document.getElementById('loginForm').addEventListener('submit', async function (event) {
+    event.preventDefault();
 
-    // Ottieni i valori inseriti
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
 
-    // Verifica i dati (in questo caso solo una logica di esempio)
-    if (email && password) {
-        // Esegui una simulazione di login
-        alert('Login effettuato con successo!');
-        // Qui puoi aggiungere la logica per fare il login effettivo (ad esempio, invio al server)
-    } else {
-        alert('Per favore, inserisci email e password validi.');
+    try {
+        const response = await fetch('http://localhost:5000/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email, password }),
+        });
+
+        if (!response.ok) throw new Error('Credenziali non valide');
+
+        const data = await response.json();
+        localStorage.setItem('authToken', data.token);
+        alert('Login effettuato con successo');
+        window.location.href = 'profilo.html';
+    } catch (err) {
+        alert('Errore durante il login: ' + err.message);
     }
 });

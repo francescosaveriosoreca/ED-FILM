@@ -33,6 +33,15 @@ function updateUsername() {
     if (newUsername) {
         userProfile.username = newUsername;
         localStorage.setItem("username", newUsername);
+
+        // Aggiorna anche le recensioni esistenti
+        let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+        reviews = reviews.map(review => ({
+            ...review,
+            username: newUsername
+        }));
+        localStorage.setItem("reviews", JSON.stringify(reviews));
+
         alert("Username aggiornato con successo!");
         loadProfile();
     } else {
@@ -44,4 +53,3 @@ function updateUsername() {
 function resetPassword() {
     alert("Una mail di ripristino è stata inviata a: " + userProfile.email);
 }
-

@@ -1,25 +1,24 @@
-// Gestione del form di registrazione
-document.getElementById('registerForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Previene il comportamento predefinito del form
+document.getElementById('registerForm').addEventListener('submit', async function(event) {
+    event.preventDefault();
 
-    // Ottieni i valori inseriti
     const username = document.getElementById('username').value;
     const email = document.getElementById('email').value;
     const password = document.getElementById('password').value;
-    const confirmPassword = document.getElementById('confirmPassword').value;
 
-    // Verifica che le password corrispondano
-    if (password !== confirmPassword) {
-        alert('Le password non corrispondono. Riprova!');
-        return;
-    }
+    const response = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ username, email, password })
+    });
 
-    // Verifica che tutti i campi siano compilati
-    if (username && email && password) {
-        // Esegui una simulazione di registrazione
-        alert('Registrazione completata con successo!');
-        // Qui puoi aggiungere la logica per registrare l'utente (ad esempio, invio al server)
+    const data = await response.json();
+
+    if (response.ok) {
+        alert('Registrazione completata! Ora puoi effettuare il login.');
+        window.location.href = 'login.html';
     } else {
-        alert('Per favore, compila tutti i campi.');
+        alert(data.message);
     }
 });
