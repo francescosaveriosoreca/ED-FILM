@@ -138,23 +138,70 @@ function goBack() {
     document.getElementById('movieDetails').style.display = 'none';
     document.getElementById('home').style.display = 'block';
 }
-// funzione per inserire una recensione
+
+// Funzione per inviare una recensione
 function submitReview() {
-    const reviewInput = document.getElementById('review');
-    const reviewList = document.getElementById('reviewList');
-
+    const reviewInput = document.getElementById("review");
     const reviewText = reviewInput.value.trim();
-    if (reviewText) {
-        const reviewItem = document.createElement('p');
-        reviewItem.textContent = reviewText;
-        reviewList.appendChild(reviewItem);
+    const username = localStorage.getItem("username") || "DefaultUser";
 
-        alert('Recensione inviata con successo!');
-        reviewInput.value = '';
+    if (reviewText) {
+        const review = {
+            username: username,
+            text: reviewText,
+            date: new Date().toLocaleString(),
+        };
+
+        // Recupera le recensioni esistenti da localStorage
+        let reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+        reviews.push(review); // Aggiungi la nuova recensione
+        localStorage.setItem("reviews", JSON.stringify(reviews)); // Salva l'array aggiornato in localStorage
+
+        displayReviews(); // Mostra tutte le recensioni aggiornate
+        alert("Recensione inviata con successo!");
+        reviewInput.value = ''; // Resetta il campo di input
     } else {
-        alert('Inserisci una recensione prima di inviarla.');
+        alert("Inserisci una recensione prima di inviarla.");
     }
 }
+
+// Funzione per mostrare tutte le recensioni salvate
+function displayReviews() {
+    const reviews = JSON.parse(localStorage.getItem("reviews")) || []; // Ottieni tutte le recensioni salvate
+    const reviewList = document.getElementById("reviewList");
+    reviewList.innerHTML = ''; // Resetta il contenitore
+
+    reviews.forEach(review => {
+        const reviewItem = `
+            <div class="review-item">
+                <p><strong>${review.username}</strong> (${review.date}):</p>
+                <p>${review.text}</p>
+            </div>
+        `;
+        reviewList.innerHTML += reviewItem; // Aggiungi ogni recensione al contenitore
+    });
+}
+
+// Funzione per caricare e visualizzare tutte le recensioni salvate
+function loadReviews() {
+    const reviews = JSON.parse(localStorage.getItem("reviews")) || [];
+    const reviewList = document.getElementById("reviewList");
+    reviewList.innerHTML = ''; // Resetta il contenitore delle recensioni
+
+    reviews.forEach(review => addReviewToDOM(review)); // Aggiungi ogni recensione al DOM
+}
+
+// Caricamento iniziale delle recensioni
+window.onload = function () {
+    const savedImage = localStorage.getItem("profileImage");
+    const profileImageElement = document.getElementById("profileImage");
+
+    if (savedImage) {
+        profileImageElement.src = savedImage;
+    }
+
+    displayReviews(); // Mostra tutte le recensioni salvate
+};
 
 // Funzione per caricare più film
 async function loadMoreMovies() {
