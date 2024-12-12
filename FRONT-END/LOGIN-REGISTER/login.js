@@ -1,5 +1,6 @@
-document.getElementById('loginForm').addEventListener('submit', async function (event) {
-    event.preventDefault();
+// Gestione del form di login
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Previene il comportamento predefinito del form
 
     // Ottieni i valori inseriti
     const email = document.getElementById('email').value.trim();

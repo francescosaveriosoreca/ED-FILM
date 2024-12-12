@@ -1,4 +1,3 @@
-
 document.getElementById('registerForm').addEventListener('submit', function (event) {
     event.preventDefault(); // Previene il comportamento predefinito del form
 
@@ -6,7 +5,7 @@ document.getElementById('registerForm').addEventListener('submit', function (eve
     const username = document.getElementById('username').value.trim();
     const email = document.getElementById('email').value.trim();
     const password = document.getElementById('password').value;
-
+    const confirmPassword = document.getElementById('confirmPassword').value;
 
     // Funzione per validare l'email
     function validateEmail(email) {

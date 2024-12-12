@@ -70,8 +70,8 @@ h2 {
 
 /* Stile per i pulsanti */
 .button {
-    background-color: #ffffff;
-    color: rgb(0, 0, 0);
+    background-color: #03a9f4;
+    color: white;
     padding: 15px;
     border: none;
     border-radius: 30px;
@@ -83,7 +83,7 @@ h2 {
 }
 
 .button:hover {
-    background-color: #ffffff;
+    background-color: #0288d1;
     transform: scale(1.05);
 }
 
